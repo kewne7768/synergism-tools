@@ -2,10 +2,11 @@
 
 function fieldToNumeric(field, def = 0) {
     let val;
-    if(field.value && field.value.match(/[0-9]+e[0-9]+/)) {
-        val = parseFloat(field.value);
+    let text = field.value ? field.value.replace(/,/g, "") : "0";
+    if (text && text.match(/[0-9]+e[0-9]+/)) {
+        val = parseFloat(text);
     } else {
-        val = parseInt(field.value, 10);
+        val = parseInt(text, 10);
     }
     return isNaN(val) || !isFinite(val) ? def : val;
 }
