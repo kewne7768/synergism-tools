@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Synergism C10 cost tool</title>
+    <script src="vendor/break_infinity.js"></script>
+    <script src="copypasta.js"></script>
+    <script src="c10calc.js"></script>
+    <link rel="stylesheet" href="vendor/pure-min.css">
+    <style type="text/css">
+        main {
+            margin: 20px 100px 0 100px;
+        }
+
+        #resultTable {
+            margin: 20px auto 0;
+        }
+
+        .thinger {
+            position: relative;
+            height: 2.2em;
+            line-height: 2.2em;
+        }
+
+        input {
+            width: 150px;
+            position: absolute;
+            left: 180px;
+        }
+
+        .explain {
+            color: grey;
+            position: absolute;
+            left: 350px;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <fieldset>
+        <form action="" onchange="onUpdate()">
+            <div class="thinger">
+                <label>
+                    C15 exponent:
+                    <input type="number" min="0" step="1000" name="c15">
+                    <span class="explain">("Challenge 6-10 Requirement Scaling: -<span
+                            id="c15RewardPct"></span>%")</span>
+                </label>
+            </div>
+            <div class="thinger">
+                <label>
+                    Shop tome:
+                    <input type="number" min="0" max="15" value="0" name="shopTome">
+                    <span class="explain">(Total cost: <span id="shopTomeQuarkCost">0</span> quarks)</span>
+                </label>
+            </div>
+            <div class="thinger">
+                <label>
+                    Researches:
+                    <input type="number" min="0" max="4" value="4" name="researches">
+                    <span class="explain">(Obtainium researches, up to 4)</span>
+                </label>
+            </div>
+            <div class="thinger">
+                <label>
+                    Platonic upgrade 8:
+                    <input type="number" min="0" max="5" value="0" name="plat8">
+                    <span class="explain">("Divides Hyperchallenged by its level")</span>
+                </label>
+            </div>
+            <div class="thinger">
+                <label>
+                    Target level:
+                    <input type="number" value="60" min="1" max="60" name="targetLevel">
+                    <span class="explain">(C10 level to show)</span>
+                </label>
+            </div>
+        </form>
+    </fieldset>
+
+    <table id="resultTable" class="pure-table">
+        <thead>
+        <tr>
+            <th>Corruption</th>
+            <th>Cost</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</main>
+<script>onUpdate();</script>
+</body>
+</html>
