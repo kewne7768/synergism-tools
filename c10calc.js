@@ -28,6 +28,8 @@ function onUpdate() {
     document.getElementById("shopTomeQuarkCost").textContent = tomeQuarkCost(fieldToNumeric(shopTomeField)).toString();
     let c15Field = document.querySelector("[name=c15]");
     document.getElementById("c15RewardPct").textContent = format((1 - c15rewardreincmultiplier(fieldToNumeric(c15Field))) * 100, 4, true);
+
+    saveStuff();
 }
 
 function renderTable() {
@@ -55,4 +57,32 @@ function renderTable() {
         frag.innerHTML = rowHtml;
         table.appendChild(frag);
     }
+}
+
+function loadStuff() {
+    let jsonStuff = localStorage.getItem("synergismc10costs");
+    if (jsonStuff !== null) {
+        try {
+            let json = JSON.parse(jsonStuff);
+            let inputs = document.querySelectorAll("input");
+            inputs.forEach((tag) => {
+                if (tag.name in json) {
+                    tag.value = json[tag.name];
+                }
+            });
+        } catch (e) {
+            // ignore bad json silently
+        }
+    }
+}
+
+function saveStuff() {
+    let obj = {};
+    let inputs = document.querySelectorAll("input");
+    inputs.forEach((tag) => {
+        if (tag.value) {
+            obj[tag.name] = tag.value;
+        }
+    });
+    localStorage.setItem("synergismc10costs", JSON.stringify(obj));
 }
