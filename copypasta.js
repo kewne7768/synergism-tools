@@ -1,5 +1,5 @@
 // Stuff in this file is copypasted more or less verbatim from the game
-var hyperchallengedMultiplier = [1, 1.2, 1.5, 1.7, 3, 5, 8, 13, 21, 34, 55, 100]
+var hyperchallengedMultiplier = [1, 1.2, 1.5, 1.7, 3, 5, 8, 13, 21, 34, 55, 100, 400]
 
 
 let numberFormatter = false;
@@ -158,8 +158,9 @@ function format(input, accuracy = 0, long = false) {
 }
 
 function c15rewardreincmultiplier(e) {
-    if (e < 3e4) return 1;
-    return Math.pow(1.006, -Math.log(e) / Math.log(2));
+    //Chal 6-10 Scaling [100000]
+    if (e < 100000) return 1;
+    return Math.pow(0.98, Math.log(e/2.5e4)/Math.log(2));
 }
 
 function challengeRequirement(targetLevel, corruption, researches, shopTome, c15, plat8) {
@@ -168,7 +169,7 @@ function challengeRequirement(targetLevel, corruption, researches, shopTome, c15
     let c10Reduction = (1e8 * (researches) + 2e7 * shopTome);
 
     let requirementMultiplier = 1;
-    requirementMultiplier *= Math.max(1, hyperchallengedMultiplier[corruption] / (1 + plat8));
+    requirementMultiplier *= Math.max(1, hyperchallengedMultiplier[corruption] / (1 + plat8 / 2.5));
     if (completions >= 60) {
         requirementMultiplier *= Math.pow(1 + completions, 5) / 7200
     }
