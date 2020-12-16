@@ -22,10 +22,14 @@
             line-height: 2.2em;
         }
 
-        input {
+        input, select {
             width: 150px;
             position: absolute;
             left: 180px;
+        }
+
+        select {
+            width: 300px;
         }
 
         .explain {
@@ -75,14 +79,25 @@
                     <span class="explain">(C10 level to show)</span>
                 </label>
             </div>
+            <div class="thinger">
+                <label>
+                    Plot horizontal:
+                    <select name="plotHorizontal">
+                        <option value="nothing">Nothing</option>
+                        <option value="targetLevel">C10 Target Level</option>
+                        <option value="shopTome">Shop Tome Levels</option>
+                        <option value="plat8">Platonic Upgrade 8 Levels</option>
+                    </select>
+                </label>
+            </div>
         </form>
     </fieldset>
 
-    <table id="resultTable" class="pure-table">
+    <table id="resultTable" class="pure-table pure-table-striped">
         <thead>
         <tr>
             <th>Corruption</th>
-            <th>Cost</th>
+            <th class="rowScope">Cost</th>
         </tr>
         </thead>
         <tbody>
@@ -90,6 +105,9 @@
         </tbody>
     </table>
 </main>
-<script>loadStuff(); onUpdate();</script>
+<script>
+    loadStuff();
+    onUpdate();
+</script>
 </body>
 </html>
