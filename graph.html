@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ascension Graph</title>
+    <link rel="stylesheet" href="graph/graph.css?">
+    <script src="graph/graph.js"></script>
+    <script src="graph/processor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+</head>
+<body>
+<section id="feedme">
+    <h1>Feed Me</h1>
+    <div style="display: none"><input type="file" name="filePicker" id="filePicker" multiple
+                                      onchange="graphAppUi.onFilePickerChange(this)"></div>
+    <button style="background: darkseagreen" onclick="document.getElementById('filePicker').click()">Feed Me Delicious
+        Save Files
+    </button>
+</section>
+
+<section>
+    <h2>Graphs</h2>
+
+    <div id="graph-container">
+        <canvas id="chart"></canvas>
+
+    </div>
+</section>
+
+<script>
+    graphAppUi.registerEvents();
+</script>
+</body>
+</html>
