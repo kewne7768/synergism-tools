@@ -119,10 +119,37 @@ class GraphAppUi {
         });
     }
 
+    arrayGetMinObjectValue(arr, key, getMax) {
+        return arr.reduce(getMax ? (p, c) => {
+            if (p < c[key]) {
+                return c[key];
+            }
+            return p;
+        } : (p, c) => {
+            if (p > c[key]) {
+                return c[key];
+            }
+            return p;
+        }, getMax ? -Infinity : Infinity);
+    }
+
     renderDataset(datas) {
         console.info("Rendering this: %o", datas);
         let chart = document.getElementById("chart");
         let context = chart.getContext("2d");
+
+        let values = Array.from(datas.values());
+
+        let lowestPlatonic = this.arrayGetMinObjectValue(values, "bestWowPlatonicCubesPerSecond");
+        let highestPlatonic = this.arrayGetMinObjectValue(values, "bestWowPlatonicCubesPerSecond", true);
+        let lowestHypercube = this.arrayGetMinObjectValue(values, "bestWowHypercubesPerSecond");
+        let highestHypercube = this.arrayGetMinObjectValue(values, "bestWowHypercubesPerSecond", true);
+
+        let axisMin = Math.min(lowestHypercube, lowestPlatonic * 10);
+        let axisMax = Math.max(highestHypercube, highestPlatonic * 10);
+
+        console.info("Axis stuff %s %s", axisMin, axisMax);
+
         let chartConfig = {
             type: "line",
             options: {
@@ -130,13 +157,25 @@ class GraphAppUi {
                     yAxes: [
                         {
                             id: "wowPlatonicCubesAxis",
-                            display: true,
-                            labelString: "Platonics/s",
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Platonics/s",
+                            },
+                            ticks: {
+                                suggestedMin: axisMin / 10,
+                                suggestedMax: axisMax / 10,
+                            },
                         },
                         {
                             id: "wowHypercubesAxis",
-                            display: true,
-                            labelString: "Hypercubes/s",
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Hypercubes/s",
+                            },
+                            ticks: {
+                                suggestedMin: axisMin,
+                                suggestedMax: axisMax,
+                            },
                         }
                     ]
                 }
@@ -146,14 +185,14 @@ class GraphAppUi {
                 datasets: [
                     {
                         label: "Best Platonic Cubes per Second",
-                        data: Array.from(datas.values()).map(facts => facts.bestWowPlatonicCubesPerSecond),
+                        data: values.map(facts => facts.bestWowPlatonicCubesPerSecond),
                         borderColor: 'lightgoldenrodyellow',
                         fill: false,
                         yAxisID: "wowPlatonicCubesAxis",
                     },
                     {
                         label: "Best Wow! Hypercubes per Second",
-                        data: Array.from(datas.values()).map(facts => facts.bestWowHypercubesPerSecond),
+                        data: values.map(facts => facts.bestWowHypercubesPerSecond),
                         borderColor: 'crimson',
                         fill: false,
                         yAxisID: "wowHypercubesAxis",
