@@ -107,7 +107,7 @@ class GraphAppUi {
             });
         }
 
-        Promise.allSettled(allPromises).then(p => {
+        Promise.allSettled(allPromises).then(() => {
             this.buildDataset();
         });
     }
